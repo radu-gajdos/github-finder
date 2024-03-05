@@ -2,12 +2,14 @@ import React, { Fragment, Component, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import Repos from '../repos/Repos';
 
-const User = ({ getUser, user, loading }) => {
+const User = ({ getUser, user, getUserRepos, repos, loading }) => {
   const { login } = useParams();
 
   useEffect(() => {
     getUser(login);
+    getUserRepos(login);
   }, []);
 
   const {
@@ -90,6 +92,8 @@ const User = ({ getUser, user, loading }) => {
         <div className='badge badge-light'>Public Repos: {public_repos}</div>
         <div className='badge badge-dark'>Public Gists: {public_gists}</div>
       </div>
+
+      <Repos repos = {repos}></Repos>
     </Fragment>
   );
 };
