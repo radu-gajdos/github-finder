@@ -7,6 +7,8 @@ import Search from "./components/users/Search";
 import Alert from "./components/layout/Alert";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import About from "./components/About";
+import Home from "./components/pages/Home"
+import NotFound from "./components/pages/NotFound"
 
 import GithubState from "./context/github/GithubState";
 import AlertState from "./context/alert/AlertState";
@@ -25,14 +27,12 @@ const App = () => {
                   exact
                   path="/"
                   element={
-                    <Fragment>
-                      <Search />
-                      <Users />
-                    </Fragment>
+                    <Home/>
                   }
                 />
                 <Route exact path="/about" element={<About />} />
                 <Route exact path="/user/:login" element={<User />} />
+                <Route path="*" element={<NotFound />} />
               </Routes>
             </div>
           </div>
