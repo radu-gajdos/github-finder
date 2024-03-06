@@ -1,15 +1,21 @@
-import React, { Fragment, Component, useEffect } from 'react';
-import axios from 'axios';
-import { useParams } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-import Repos from '../repos/Repos';
+import React, { Fragment, useEffect, useContext } from "react";
+import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
+import Repos from "../repos/Repos";
+import { Spinner } from "../layout/Spinner";
+import GithubContext from "../../context/github/githubContext";
 
-const User = ({ getUser, user, getUserRepos, repos, loading }) => {
+const User = () => {
+  const githubContext = useContext(GithubContext);
+
+  const { getUser, getUserRepos, repos, loading, user } = githubContext;
+
   const { login } = useParams();
 
   useEffect(() => {
     getUser(login);
     getUserRepos(login);
+    // eslint-disable-next-line
   }, []);
 
   const {
@@ -27,24 +33,26 @@ const User = ({ getUser, user, getUserRepos, repos, loading }) => {
     hireable,
   } = user;
 
+  if (loading) return <Spinner />;
+
   return (
     <Fragment>
-      <Link to='/' className='btn btn-light'>
+      <Link to="/" className="btn btn-light">
         Back To Search
       </Link>
-      Hireable:{' '}
+      Hireable:{" "}
       {hireable ? (
-        <i className='fas fa-check text-success' />
+        <i className="fas fa-check text-success" />
       ) : (
-        <i className='fas fa-times-circle text-danger' />
+        <i className="fas fa-times-circle text-danger" />
       )}
-      <div className='card grid-2'>
-        <div className='all-center'>
+      <div className="card grid-2">
+        <div className="all-center">
           <img
             src={avatar_url}
-            className='round-img'
-            alt=''
-            style={{ width: '150px' }}
+            className="round-img"
+            alt=""
+            style={{ width: "150px" }}
           />
           <h1>{name}</h1>
           <p>Location: {location}</p>
@@ -56,7 +64,7 @@ const User = ({ getUser, user, getUserRepos, repos, loading }) => {
               <p>{bio}</p>
             </Fragment>
           )}
-          <a href={html_url} className='btn btn-dark my-1'>
+          <a href={html_url} className="btn btn-dark my-1">
             Visit Github Profile
           </a>
           <ul>
@@ -86,14 +94,13 @@ const User = ({ getUser, user, getUserRepos, repos, loading }) => {
           </ul>
         </div>
       </div>
-      <div className='card text-center'>
-        <div className='badge badge-primary'>Followers: {followers}</div>
-        <div className='badge badge-success'>Following: {following}</div>
-        <div className='badge badge-light'>Public Repos: {public_repos}</div>
-        <div className='badge badge-dark'>Public Gists: {public_gists}</div>
+      <div className="card text-center">
+        <div className="badge badge-primary">Followers: {followers}</div>
+        <div className="badge badge-success">Following: {following}</div>
+        <div className="badge badge-light">Public Repos: {public_repos}</div>
+        <div className="badge badge-dark">Public Gists: {public_gists}</div>
       </div>
-
-      <Repos repos = {repos}></Repos>
+      <Repos repos={repos}></Repos>
     </Fragment>
   );
 };
