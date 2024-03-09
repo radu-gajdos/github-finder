@@ -1,6 +1,7 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 
 const About = () => {
+
   return (
     <Fragment>
       <h1>About This App</h1>

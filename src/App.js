@@ -9,11 +9,17 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import About from "./components/About";
 import Home from "./components/pages/Home"
 import NotFound from "./components/pages/NotFound"
+import { useEffect } from "react";
 
 import GithubState from "./context/github/GithubState";
 import AlertState from "./context/alert/AlertState";
 
 const App = () => {
+
+  useEffect(() => {
+    document.title = "GithubFinder";
+  }, []);
+
   return (
     <GithubState>
       <AlertState>
