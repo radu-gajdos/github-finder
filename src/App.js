@@ -6,7 +6,7 @@ import User from "./components/users/User";
 import Search from "./components/users/Search";
 import Alert from "./components/layout/Alert";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import About from "./components/About";
+import About from "./components/pages/About";
 import Home from "./components/pages/Home"
 import NotFound from "./components/pages/NotFound"
 import { useEffect } from "react";
